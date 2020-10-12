@@ -21,7 +21,7 @@ Se debe considerar que el único elemento necesario para ejecutarlo sin compilac
 
 ## Ejecución sin compilación local
 
-Con esta modalidad, no es necesario contar con el código fuente de la aplicación. Solo basta con tener el archivo [docker-compose.yml](https://github.com/luisorellana777/spring_boot_restaurant-sales/blob/master/restaurant-sales/docker-compose.yml) y ejecutarlo en la misma ruta donde se encuentre:
+Con esta modalidad, no es necesario contar con el código fuente de la aplicación. Solo basta con tener el archivo [docker-compose.yml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/docker-compose.yml) y ejecutarlo en la misma ruta donde se encuentre:
 
 ```sh
 $ docker-compose up
@@ -35,31 +35,31 @@ Esto dará paso a un pull y run de tres imágenes:
 ## Ejecución con compilación local
 
 Para este paso, es necesario contar con el código fuente del servicio.
-Como primer paso, se debe ejecutar el siguiente comando en la ruta donde se encuentre el archivo [docker-compose.yml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/restaurant-sales/docker-compose.yml):
+Como primer paso, se debe ejecutar el siguiente comando en la ruta donde se encuentre el archivo [docker-compose.yml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/docker-compose.yml):
 
 ```sh
 $ docker-compose up mysql
 ```
 Esto dejara en ejecución un contenedor Mysql.
-Luego, en la ruta donde se encuentre el archivo [pom.xml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/restaurant-sales/pom.xml), ejecutar:
+Luego, en la ruta donde se encuentre el archivo [pom.xml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/pom.xml), ejecutar:
 ```sh
 $ ./mvnw spring-boot:run
 ```
 De esta manera, se podrá modificar sin problemas el código base del servicio.
 
 ## Ejecución de pruebas unitarias
-Por otro lado, si se desea ejecutar las pruebas unitarias, es necesario ejecutar el siguiente comando en la ruta donde se encuentre el archivo [docker-compose.yml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/restaurant-sales/docker-compose.yml):
+Por otro lado, si se desea ejecutar las pruebas unitarias, es necesario ejecutar el siguiente comando en la ruta donde se encuentre el archivo [docker-compose.yml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/docker-compose.yml):
 
 ```sh
 $ docker-compose up rabbit
 ```
-Y luego ejecutar el siguiente comando donde se encuentre el archivo [pom.xml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/restaurant-sales/pom.xml):
+Y luego ejecutar el siguiente comando donde se encuentre el archivo [pom.xml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/pom.xml):
 ```sh
 $ mvn clean package
 ```
 Esto realizara dos pasos:
   - Ejecutara los test unitarios, y luego la creación del jar.
-  - Creara una imagen Docker local, utilizando el archivo [Dockerfile](https://github.com/luisorellana777/spring_boot_restaurant-sales/blob/master/restaurant-sales/Dockerfile). Esto se realiza por medio de un plugin inserto en el archivo [pom.xml](https://github.com/luisorellana777/spring_boot_restaurant-sales/blob/master/restaurant-sales/pom.xml). Este plugin es [dockerfile-maven-plugin](https://mvnrepository.com/artifact/com.spotify/dockerfile-maven-plugin).
+  - Creara una imagen Docker local, utilizando el archivo [Dockerfile](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/Dockerfile). Esto se realiza por medio de un plugin inserto en el archivo [pom.xml](https://github.com/luisorellana777/spring_boot_restaurant-sales/blob/master/restaurant-sales/pom.xml). Este plugin es [dockerfile-maven-plugin](https://mvnrepository.com/artifact/com.spotify/dockerfile-maven-plugin).
 
 Para realizar las pruebas unitarias, es necesario contar con RabbitMQ, ya que en este paso se crea una cola de mensajería especial para dicho test. Luego de que finalizan estas pruebas, la cola de test es eliminada de manera automática. Por otra parte, no es necesario utilizar la imagen Docker MySQL, ya que en la fase de pruebas, se crea una base de datos en memoria. Esta base de datos es [H2](https://www.h2database.com/html/main.html).
 
