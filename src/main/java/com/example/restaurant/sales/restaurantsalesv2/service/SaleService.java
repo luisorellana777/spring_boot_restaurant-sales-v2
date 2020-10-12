@@ -91,12 +91,12 @@ public class SaleService {
 
 		Long tableId = saleDto.getTable().getId();
 		Table tableEntity = tableRepository.getTable(tableId);
-		tableEntity.setSale(saleEntity);
+		tableEntity.addSale(saleEntity);
 		saleEntity.setTable(tableEntity);
 
 		Long waiterId = saleDto.getWaiter().getId();
 		Waiter waiterEntity = waiterRepository.getWaiter(waiterId);
-		waiterEntity.setSale(saleEntity);
+		waiterEntity.addSale(saleEntity);
 		saleEntity.setWaiter(waiterEntity);
 
 		saleEntity.setId(saleDto.getId());

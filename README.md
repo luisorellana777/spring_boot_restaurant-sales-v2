@@ -184,3 +184,5 @@ Para el caso de modificar la entidad "Sale" por medio de PUT, se debe ingresar e
   "tip": 2500
 }
 ```
+
+En el caso de utilizar el metodo DELETE, la entidad "Sale" no es eliminada de la base de dato, sino que su estado es modificado por medio de [hibernate soft delete](https://hibernate.atlassian.net/browse/HHH-11648).

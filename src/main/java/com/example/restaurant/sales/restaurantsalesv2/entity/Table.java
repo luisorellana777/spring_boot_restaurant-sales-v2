@@ -1,13 +1,15 @@
 package com.example.restaurant.sales.restaurantsalesv2.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -33,8 +35,8 @@ public class Table {
 	private int number;
 	private int seats;
 
-	@OneToOne(mappedBy = "table", fetch = FetchType.LAZY)
-	private Sale sale;
+	@OneToMany(mappedBy = "table", fetch = FetchType.EAGER)
+	private List<Sale> sales = new ArrayList<Sale>();
 
 	@UpdateTimestamp
 	private LocalDate lastUpdatedDate;
@@ -43,4 +45,8 @@ public class Table {
 	private LocalDate createdDate;
 
 	private boolean isDeleted;
+
+	public void addSale(Sale sale) {
+		this.sales.add(sale);
+	}
 }

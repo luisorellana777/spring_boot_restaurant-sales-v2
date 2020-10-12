@@ -20,12 +20,19 @@ public class SaleRepository {
 
 	public Sale getSale(Long idSale) {
 
-		Optional<Sale> optionalSaleEntity = saleEntityRepository.findById(idSale);
-		if (!optionalSaleEntity.isPresent())
-			throw new EntityNotFoundException("Venta no encontrada: " + (idSale));
-		Sale saleEntity = optionalSaleEntity.get();
+		try {
 
-		return saleEntity;
+			Optional<Sale> optionalSaleEntity = saleEntityRepository.findById(idSale);
+			if (!optionalSaleEntity.isPresent())
+				throw new EntityNotFoundException("Venta no encontrada: " + (idSale));
+			Sale saleEntity = optionalSaleEntity.get();
+
+			return saleEntity;
+
+		} catch (IllegalArgumentException ex) {
+
+			throw new GeneralException("Error al almacenar la venta.");
+		}
 	}
 
 	public Sale setSale(Sale saleEntity) {
@@ -60,9 +67,13 @@ public class SaleRepository {
 
 		try {
 
+			boolean existsById = saleEntityRepository.existsById(idSale);
+			if (!existsById)
+				throw new EntityNotFoundException("Venta no encontrada: " + (idSale));
+
 			saleEntityRepository.deleteById(idSale);
 
-		} catch (Exception ex) {
+		} catch (IllegalArgumentException ex) {
 
 			throw new GeneralException("Error al almacenar la venta.");
 		}

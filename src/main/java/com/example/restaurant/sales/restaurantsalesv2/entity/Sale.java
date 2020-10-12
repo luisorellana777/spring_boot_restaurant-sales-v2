@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -39,11 +39,11 @@ public class Sale {
 	@JoinTable(name = "SALE_DISH", joinColumns = @JoinColumn(name = "SALE_ID"), inverseJoinColumns = @JoinColumn(name = "DISH_ID"))
 	private List<Dish> dishes = new ArrayList<Dish>();
 
-	@OneToOne
-	private Waiter waiter;
+	@ManyToOne
+	private Waiter waiter = new Waiter();
 
-	@OneToOne
-	private Table table;
+	@ManyToOne
+	private Table table = new Table();
 
 	@UpdateTimestamp
 	private LocalDate lastUpdatedDate;
