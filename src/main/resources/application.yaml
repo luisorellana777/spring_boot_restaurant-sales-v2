@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:restaurant_sales_db}
+    username: ${RDS_USERNAME:restaurant_sale_user}
+    password: ${RDS_PASSWORD:restaurant_sale_pass}
+    initialization-mode: always
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default      
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8091       
+restaurant-sales:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}         
+    port: ${RABBITMQ_PORT:5672}
+    user: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
+    virtualhost: ${RABBITMQ_VIRTUAL_HOST:/}
+    queue-name: ${RABBITMQ_QUEUE_NAME:restaurant-queue}
+    exchange-name: ${RABBITMQ_EXCHANGE_NAME:restaurant-queue-exchange}
+  values:
+    tax: 0.19  
+    neto: 1.19
+    
+logging:
+  level:
+    org:
+      springframework: INFO
