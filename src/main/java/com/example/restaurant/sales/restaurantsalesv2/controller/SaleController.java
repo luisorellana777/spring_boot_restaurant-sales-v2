@@ -51,14 +51,14 @@ public class SaleController {
 	public ResponseEntity<SaleDto> postSales(@RequestBody @Valid SaleDto saleDto) {
 
 		SaleDto newSaleDto = saleService.setSales(saleDto);
-		return new ResponseEntity<>(newSaleDto, HttpStatus.OK);
+		return new ResponseEntity<>(newSaleDto, HttpStatus.CREATED);
 	}
 
 	@PutMapping(path = "/")
 	public ResponseEntity<SaleDto> putSales(@RequestBody @Valid SaleDto saleDto) {
 
 		SaleDto newSaleDto = saleService.setSales(saleDto);
-		return new ResponseEntity<>(newSaleDto, HttpStatus.OK);
+		return new ResponseEntity<>(newSaleDto, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping(path = "/{idSale}")
