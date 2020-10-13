@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: usage_message
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:restaurant_sales_db}
@@ -32,6 +34,8 @@ restaurant-sales:
   values:
     tax: 0.19  
     neto: 1.19
+  attriblog-scheduler:
+    cron-expression: 0 * * * * *
     
 logging:
   level:

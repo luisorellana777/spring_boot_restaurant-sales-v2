@@ -1,7 +1,7 @@
 package com.example.restaurant.sales.restaurantsalesv2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ import com.example.restaurant.sales.restaurantsalesv2.dto.TableDto;
 import com.example.restaurant.sales.restaurantsalesv2.dto.WaiterDto;
 import com.example.restaurant.sales.restaurantsalesv2.service.SaleService;
 import com.example.restaurant.sales.restaurantsalesv2.service.SalesMQService;
+import com.example.restaurant.sales.restaurantsalesv2.util.SaleCalculatorUtil;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -43,54 +44,12 @@ class RestaurantSalesV2ApplicationTests {
 	@Autowired
 	private SaleService saleService;
 
+	@Autowired
+	private SaleCalculatorUtil saleCalculatorUtil;
+
 	@Test
 	@DirtiesContext(methodMode = MethodMode.BEFORE_METHOD)
 	void testOneToOneMQ() {
-
-		SaleDto newSaleDto = this.createSaleDto();
-
-		saleService.setSales(newSaleDto);
-
-		SaleDto saleDto = saleService.getSale(1L);
-
-		salesMQService.pushSale(saleDto);
-
-		SaleDto pullSale = salesMQService.pullSale();
-
-		assertNotNull(pullSale.getId());
-		assertEquals(1000L, pullSale.getDishes().get(0).getId());
-		assertEquals(13865L, pullSale.getNeto());
-		assertEquals(2634L, pullSale.getTax());
-		assertEquals(17500L, pullSale.getTotal());
-		assertEquals(1, pullSale.getDishes().size());
-
-		List<SaleDto> salesAll = saleService.getSales();
-		salesMQService.pushSales(salesAll);
-		List<SaleDto> pullSalesAll = salesMQService.pullSales();
-		assertEquals(1, pullSalesAll.size());
-	}
-
-	@Test
-	@DirtiesContext(methodMode = MethodMode.BEFORE_METHOD)
-	void testManyToManyMQ() {
-		for (int i = 0; i < 100; i++) {
-
-			SaleDto newSaleDto = this.createSaleDto();
-			saleService.setSales(newSaleDto);
-		}
-
-		List<SaleDto> salesToday = saleService.getSalesToday();
-		salesMQService.pushSales(salesToday);
-		List<SaleDto> pullSales = salesMQService.pullSales();
-		assertEquals(100, pullSales.size());
-
-		List<SaleDto> salesAll = saleService.getSales();
-		salesMQService.pushSales(salesAll);
-		List<SaleDto> pullSalesAll = salesMQService.pullSales();
-		assertEquals(100, pullSalesAll.size());
-	}
-
-	private SaleDto createSaleDto() {
 
 		SaleDto newSaleDto = new SaleDto();
 		newSaleDto.setTip(1000L);
@@ -107,7 +66,48 @@ class RestaurantSalesV2ApplicationTests {
 		newWaiterDto.setId(1000L);
 		newSaleDto.setWaiter(newWaiterDto);
 
-		return newSaleDto;
+		saleService.setSales(newSaleDto);
+
+		List<SaleDto> sales = saleService.getSales();
+		SaleDto saleDto = saleService.getSale(1L);
+
+		salesMQService.pushSale(saleDto);
+
+		SaleDto pullSale = salesMQService.pullSale();
+
+		assertNull(pullSale);
+
+		assertEquals(1L, saleDto.getId());
+		assertEquals(13865L, saleDto.getNeto());
+		assertEquals(2634L, saleDto.getTax());
+		assertEquals(17500L, saleDto.getTotal());
+		assertEquals(1, saleDto.getDishes().size());
+
+		List<SaleDto> salesAll = sales;
+		salesMQService.pushSales(salesAll);
+		List<SaleDto> pullSalesAll = salesMQService.pullSales();
+		assertEquals(0, pullSalesAll.size());
+	}
+
+	@Test
+	@DirtiesContext(methodMode = MethodMode.BEFORE_METHOD)
+	void testManyToManyMQ() {
+
+		List<SaleDto> newSalesDto = saleCalculatorUtil.createMockSaleDto(10);
+		newSalesDto.forEach(saleDto -> {
+			saleService.setSales(saleDto);
+		});
+
+		List<SaleDto> salesToday = saleService.getSalesToday();
+		salesMQService.pushSales(salesToday);
+		assertEquals(10, salesToday.size());
+		List<SaleDto> pullSales = salesMQService.pullSales();
+		assertEquals(0, pullSales.size());
+
+		List<SaleDto> salesAll = saleService.getSales();
+		salesMQService.pushSales(salesAll);
+		List<SaleDto> pullSalesAll = salesMQService.pullSales();
+		assertEquals(0, pullSalesAll.size());
 	}
 
 	@AfterAll

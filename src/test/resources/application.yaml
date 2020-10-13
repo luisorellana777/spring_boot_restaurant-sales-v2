@@ -26,6 +26,8 @@ restaurant-sales:
   values:
     tax: 0.19  
     neto: 1.19
+  attriblog-scheduler:
+    cron-expression: 0 0 * * * MON-SAT
     
 logging:
   level:

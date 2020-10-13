@@ -186,3 +186,7 @@ Para el caso de modificar la entidad "Sale" por medio de PUT, se debe ingresar e
 ```
 
 En el caso de utilizar el metodo DELETE, la entidad "Sale" no es eliminada de la base de dato, sino que su estado es modificado por medio de [hibernate soft delete](https://thorben-janssen.com/implement-soft-delete-hibernate/).
+
+### Proceso Asíncrono
+
+Se utiliza un proceso en paralelo para depositar elementos en una cola RabbitMQ. Luego Un escuchador recoge dicho elemento (Sale) para luego depositarlo en la base de datos. De esta manera se simula un flujo constante de ventas a la base de datos.
