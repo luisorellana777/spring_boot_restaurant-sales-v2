@@ -27,44 +27,44 @@ public class SaleController {
 	private SaleService saleService;
 
 	@GetMapping(path = "/")
-	public ResponseEntity<Object> getSales() {
+	public ResponseEntity<List<SaleDto>> getSales() {
 
 		List<SaleDto> salesDto = saleService.getSales();
-		return new ResponseEntity<>(salesDto, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(salesDto, HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/{idSale}")
-	public ResponseEntity<Object> getSale(@PathVariable Long idSale) {
+	public ResponseEntity<SaleDto> getSale(@PathVariable Long idSale) {
 
 		SaleDto saleDto = saleService.getSale(idSale);
-		return new ResponseEntity<>(saleDto, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(saleDto, HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/today")
-	public ResponseEntity<Object> getSalesToday() {
+	public ResponseEntity<List<SaleDto>> getSalesToday() {
 
 		List<SaleDto> salesDto = saleService.getSalesToday();
-		return new ResponseEntity<>(salesDto, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(salesDto, HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/")
-	public ResponseEntity<Object> postSales(@RequestBody @Valid SaleDto saleDto) {
+	public ResponseEntity<SaleDto> postSales(@RequestBody @Valid SaleDto saleDto) {
 
 		SaleDto newSaleDto = saleService.setSales(saleDto);
-		return new ResponseEntity<>(newSaleDto, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(newSaleDto, HttpStatus.OK);
 	}
 
 	@PutMapping(path = "/")
-	public ResponseEntity<Object> putSales(@RequestBody @Valid SaleDto saleDto) {
+	public ResponseEntity<SaleDto> putSales(@RequestBody @Valid SaleDto saleDto) {
 
 		SaleDto newSaleDto = saleService.setSales(saleDto);
-		return new ResponseEntity<>(newSaleDto, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(newSaleDto, HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = "/{idSale}")
-	public ResponseEntity<Object> deleteSales(@PathVariable Long idSale) {
+	public ResponseEntity<String> deleteSales(@PathVariable Long idSale) {
 
 		String message = saleService.eliminateSale(idSale);
-		return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 }
