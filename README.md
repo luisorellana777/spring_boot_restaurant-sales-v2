@@ -38,7 +38,7 @@ Para este paso, es necesario contar con el código fuente del servicio.
 Como primer paso, se debe ejecutar el siguiente comando en la ruta donde se encuentre el archivo [docker-compose.yml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/docker-compose.yml):
 
 ```sh
-$ docker-compose up mysql
+$ docker-compose up mysql rabbit
 ```
 Esto dejara en ejecución un contenedor Mysql.
 Luego, en la ruta donde se encuentre el archivo [pom.xml](https://github.com/luisorellana777/spring_boot_restaurant-sales-v2/blob/master/pom.xml), ejecutar:
