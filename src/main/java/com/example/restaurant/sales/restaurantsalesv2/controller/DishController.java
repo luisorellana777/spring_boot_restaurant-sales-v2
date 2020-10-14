@@ -20,9 +20,9 @@ public class DishController {
 	private DishService dishService;
 
 	@GetMapping(path = "/")
-	public ResponseEntity<Object> getDishes() {
+	public ResponseEntity<List<DishDto>> getDishes() {
 
 		List<DishDto> dishesDto = dishService.getDishes();
-		return new ResponseEntity<>(dishesDto, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(dishesDto, HttpStatus.OK);
 	}
 }

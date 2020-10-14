@@ -19,9 +19,9 @@ public class LoginController {
 	private LoginService loginService;
 
 	@PutMapping(path = "/login")
-	public ResponseEntity<Object> login(@RequestBody @Valid LoginDto loginDto) {
+	public ResponseEntity<String> login(@RequestBody @Valid LoginDto loginDto) {
 
 		String message = this.loginService.login(loginDto.getEmail(), loginDto.getPassword());
-		return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 }

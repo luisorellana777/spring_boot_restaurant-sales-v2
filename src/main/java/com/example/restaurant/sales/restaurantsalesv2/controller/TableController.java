@@ -20,9 +20,9 @@ public class TableController {
 	private TableService tableService;
 
 	@GetMapping(path = "/")
-	public ResponseEntity<Object> getTables() {
+	public ResponseEntity<List<TableDto>> getTables() {
 
 		List<TableDto> tablesDto = tableService.getTables();
-		return new ResponseEntity<>(tablesDto, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(tablesDto, HttpStatus.OK);
 	}
 }

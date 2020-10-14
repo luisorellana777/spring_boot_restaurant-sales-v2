@@ -20,9 +20,9 @@ public class WaiterController {
 	private WaiterService waiterService;
 
 	@GetMapping(path = "/")
-	public ResponseEntity<Object> getWaiters() {
+	public ResponseEntity<List<WaiterDto>> getWaiters() {
 
 		List<WaiterDto> waitersDto = waiterService.getWaiters();
-		return new ResponseEntity<>(waitersDto, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(waitersDto, HttpStatus.OK);
 	}
 }
