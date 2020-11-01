@@ -130,7 +130,7 @@ Por otra parte, los siguientes métodos describen las entidades relacionadas con
 
 La estructura json de la entidad "Sale" que se debe enviar como POST es:
 
-```
+```json5
 {
   "dishes": [
     {
@@ -166,7 +166,7 @@ Se deben considerar las siguientes validaciones:
 
 Para el caso de modificar la entidad "Sale" por medio de PUT, se debe ingresar el identificador de la venta, quedando de esta manera:
 
-```
+```json5
 {
   "id": 1,
   "dishes": [
