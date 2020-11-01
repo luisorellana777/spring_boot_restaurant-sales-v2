@@ -4,11 +4,11 @@
 
 Este documento describe los siguientes temas concernientes a la ejecución y modificación del proyecto "Restaurant Sales".
 
-  - Prerrequisitos
-  - Ejecución sin compilación local
-  - Ejecución con compilación local
-  - Ejecución de pruebas unitarias
-  - Comportamiento general del flujo
+  - Prerrequisitos.
+  - Ejecución sin compilación local.
+  - Ejecución con compilación local.
+  - Ejecución de pruebas unitarias.
+  - Comportamiento general del flujo.
 
 ## Prerrequisitos
 
