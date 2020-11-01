@@ -189,4 +189,4 @@ En el caso de utilizar el metodo DELETE, la entidad "Sale" no es eliminada de la
 
 ### Proceso Asíncrono
 
-Se utiliza un proceso en paralelo para depositar elementos en una cola RabbitMQ. La venta generada por medio de un Mock es de manera aleatorio, generando valores al azar y cantidad de ventas entre 1 y 10 una vez por minuto. Luego un escuchador recoge dicho elemento (Sale) para luego depositarlo en la base de datos. De esta manera se simula el flujo constante de ventas a la base de datos.
+Se utiliza un proceso en paralelo para depositar elementos en una cola RabbitMQ. La venta generada por medio de un Mock es de manera aleatorio, generando valores al azar y cantidad de ventas entre 1 y 10, una vez por minuto. Luego un escuchador recoge dicho elemento (Sale) para luego depositarlo en la base de datos. De esta manera se simula el flujo constante de ventas a la base de datos.
