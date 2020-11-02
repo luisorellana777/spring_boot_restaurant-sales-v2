@@ -104,7 +104,7 @@ En el cuerpo del mensaje se debe incluir:
 
 Con esto se obtendrá un mensaje, el cual contendrá un token como:
 
-```diff
+```json5
 {"message":"Credencial Correcto.",
 "token":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJrZXlJZEpXVCIsInN1YiI6ImFycm9iYUBwdW50by5jZWVsZSIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2MDE5MTk4MDMsImV4cCI6MTYwMTkyMDQwM30.-aioy6JbQzWdA9AGNRcxjIDNkNJDs-_HzlEBaI8sejbIzgk6ecvMZzyr7mLWL-0bGEk0qIoP6caVUv7TO7P8Xg"}
 ```
